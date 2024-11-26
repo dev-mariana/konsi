@@ -1,20 +1,20 @@
 import fastify from 'fastify';
 import { ZodError } from 'zod';
 import { appRoutes } from './application/controllers/routes';
+import { connectRabbitMQ } from './infra/rabbitmq/rabbit-mq';
 
-export const app = fastify({
-	logger: true,
-});
+export const app = fastify();
 
 app.register(appRoutes);
+app.register(connectRabbitMQ);
 
 app.setErrorHandler((error, _, reply) => {
-	if (error instanceof ZodError) {
-		return reply.status(400).send({
-			message: 'Validation error.',
-			issues: error.format(),
-		});
-	}
+  if (error instanceof ZodError) {
+    return reply.status(400).send({
+      message: 'Validation error.',
+      issues: error.format(),
+    });
+  }
 
-	return reply.status(500).send({ message: 'Internal server error.' });
+  return reply.status(500).send({ message: 'Internal server error.' });
 });

@@ -9,6 +9,8 @@ const envSchema = z.object({
   BASE_URL: z.string(),
   EXTERNAL_API_USERNAME: z.string(),
   EXTERNAL_API_PASSWORD: z.string(),
+  RABBITMQ_CONNECTION: z.string(),
+  RABBITMQ_QUEUE: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
