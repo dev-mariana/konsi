@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { env } from '../env';
 
+interface BenefitsResponse {
+  number: string;
+  type_code: string;
+}
+
 export async function fetchBenefits(
   taxId: string,
   token: string,
-): Promise<any> {
+): Promise<BenefitsResponse[] | undefined> {
   const baseUrl = env.BASE_URL;
 
   try {
@@ -17,7 +22,9 @@ export async function fetchBenefits(
       },
     );
 
-    return response.data;
+    const benefits = response.data.beneficios as BenefitsResponse[];
+
+    return benefits;
   } catch (error) {
     console.error(error);
   }
