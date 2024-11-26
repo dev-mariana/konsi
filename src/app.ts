@@ -1,12 +1,17 @@
+import fastifyRedis from '@fastify/redis';
 import fastify from 'fastify';
 import { ZodError } from 'zod';
 import { appRoutes } from './application/controllers/routes';
+import { env } from './infra/env';
 import { connectRabbitMQ } from './infra/rabbitmq/rabbit-mq';
 
 export const app = fastify();
 
 app.register(appRoutes);
 app.register(connectRabbitMQ);
+app.register(fastifyRedis, {
+  url: env.REDIS_URL,
+});
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

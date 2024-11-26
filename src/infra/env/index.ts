@@ -11,6 +11,7 @@ const envSchema = z.object({
   EXTERNAL_API_PASSWORD: z.string(),
   RABBITMQ_CONNECTION: z.string(),
   RABBITMQ_QUEUE: z.string(),
+  REDIS_URL: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
