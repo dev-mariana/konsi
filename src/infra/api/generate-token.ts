@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { GenerateTokenParams } from './interfaces/generate-token-params';
+import { env } from '../env';
 
-export async function generateToken(
-  params: GenerateTokenParams,
-): Promise<string | undefined> {
-  const { baseUrl, username, password } = params;
+export async function generateToken(): Promise<string | undefined> {
+  const {
+    BASE_URL: baseUrl,
+    EXTERNAL_API_USERNAME: username,
+    EXTERNAL_API_PASSWORD: password,
+  } = env;
 
   try {
     const response = await axios.post(
