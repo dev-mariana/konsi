@@ -34,7 +34,14 @@ export class FetchBenefitsService {
 
       const { beneficios: benefits } = response.data.data;
 
-      return benefits;
+      const mappedBenefits = benefits.map((benefit) => {
+        return {
+          number: benefit.numero_beneficio,
+          type_code: benefit.codigo_tipo_beneficio,
+        };
+      });
+
+      return mappedBenefits;
     } catch (error) {
       console.error(error);
     }
