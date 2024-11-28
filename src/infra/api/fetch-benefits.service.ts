@@ -22,8 +22,6 @@ export class FetchBenefitsService {
     taxId: string,
     token: string,
   ): Promise<BenefitsResponse[] | undefined> {
-    const baseUrl = env.BASE_URL;
-
     try {
       const response = await this.axios.get(
         `/api/v1/inss/consulta-beneficios?cpf=${taxId}`,
