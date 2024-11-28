@@ -32,7 +32,7 @@ export class FetchBenefitsService {
         },
       );
 
-      const benefits = response.data.beneficios as BenefitsResponse[];
+      const { beneficios: benefits } = response.data.data;
 
       return benefits;
     } catch (error) {
