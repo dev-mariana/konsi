@@ -1,4 +1,3 @@
-import { GenerateTokenService } from '../../infra/api/generate-token.service';
 import { RedisService } from '../../infra/database/redis/redis.service';
 import { Message } from '../entities/message';
 import { ConsumerQueueService } from './consumer-queue.service';
@@ -6,7 +5,6 @@ import { ConsumerQueueService } from './consumer-queue.service';
 export class FetchBenefitsService {
   constructor(
     private readonly redisService: RedisService,
-    private readonly generateTokenService: GenerateTokenService,
     private readonly consumerQueueService: ConsumerQueueService,
   ) {}
 
