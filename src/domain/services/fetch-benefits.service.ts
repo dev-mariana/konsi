@@ -16,7 +16,7 @@ export class FetchBenefitsService {
     const filteredItem = data.filter((item) => item.taxId === taxId);
 
     if (filteredItem.length === 0) {
-      throw new Error(`Data for taxId: ${taxId} was not found.`);
+      return [];
     }
 
     const transformedData = await Promise.all(

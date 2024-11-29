@@ -1,6 +1,7 @@
 import { FetchBenefitsService } from '../../infra/api/fetch-benefits.service';
 import { GenerateTokenService } from '../../infra/api/generate-token.service';
 import { RedisService } from '../../infra/database/redis/redis.service';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
 import { SendQueueService } from './send-queue.service';
 
 export class SaveBenefitsService {
@@ -15,7 +16,7 @@ export class SaveBenefitsService {
     const token = await this.generateTokenService.generateToken();
 
     if (!token) {
-      throw new Error('Token not found');
+      throw new ResourceNotFoundError(`${token} not found.`);
     }
 
     const benefits = await this.fetchBenefitsService.fetchBenefits(
