@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { ConsumerQueueService } from '../../domain/services/consumer-queue.service';
 import { FetchBenefitsService } from '../../domain/services/fetch-benefits.service';
 import { RedisService } from '../../infra/database/redis/redis.service';
+import { ElasticsearchService } from '../../infra/elasticsearch/elasticsearch.service';
 
 export async function consumerController(
   request: FastifyRequest,
@@ -17,9 +18,11 @@ export async function consumerController(
   try {
     const redisService = new RedisService(request.server.redis);
     const consumerQueueService = new ConsumerQueueService();
+    const elasticSearchService = new ElasticsearchService();
     const fetchBenefitsService = new FetchBenefitsService(
       redisService,
       consumerQueueService,
+      elasticSearchService,
     );
 
     const data = await fetchBenefitsService.execute(taxId);

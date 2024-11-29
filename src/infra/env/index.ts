@@ -12,6 +12,7 @@ const envSchema = z.object({
   RABBITMQ_CONNECTION: z.string(),
   RABBITMQ_QUEUE: z.string(),
   REDIS_URL: z.string(),
+  ELASTICSEARCH_URL: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
