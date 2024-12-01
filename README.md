@@ -77,4 +77,6 @@ Este é um projeto desenvolvido para o desafio técnico da Konsi. Ele consiste e
 
 - Fazer busca dos dados de benefícios salvos no Redis, enviados para a fila do RabbitMQ e indexados no Elasticsearch:
 
-`curl --location 'http://localhost:3000/api/benefits/search?taxId=12345689101'`
+```bash
+curl --location 'http://localhost:3000/api/benefits/search?taxId=12345689101'
+```
