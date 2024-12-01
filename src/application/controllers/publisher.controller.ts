@@ -21,6 +21,6 @@ export async function publisherController(
 
     return reply.status(201).send({ message: 'Message sent successfully' });
   } catch (error) {
-    console.error(error);
+    return reply.status(500).send({ message: error.message });
   }
 }
