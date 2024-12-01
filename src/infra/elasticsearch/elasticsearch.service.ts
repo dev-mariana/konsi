@@ -22,4 +22,12 @@ export class ElasticsearchService {
       console.error('Error connecting to Elasticsearch:', error);
     }
   }
+
+  async search(index: string, body: Record<string, any>): Promise<any> {
+    try {
+      return await this.client.search({ index, body });
+    } catch (error) {
+      console.error('Error connecting to Elasticsearch:', error);
+    }
+  }
 }

@@ -1,8 +1,11 @@
 import { FastifyInstance } from 'fastify';
-import { consumerController } from './consumer.controller';
 import { publisherController } from './publisher.controller';
+import { searchController } from './search.controller';
 
 export async function appRoutes(app: FastifyInstance) {
   app.post('/benefits/publisher', publisherController);
-  app.get('/benefits/consumer', consumerController);
+  app.get('/benefits/search', searchController);
+  app.get('/', async (_, reply) => {
+    return reply.view('/src/views/index.hbs');
+  });
 }
