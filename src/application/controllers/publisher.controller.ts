@@ -1,9 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { SaveBenefitsService } from '../../domain/services/save-benefits.service';
-import { SendQueueService } from '../../domain/services/send-queue.service';
-import { FetchBenefitsService } from '../../infra/api/fetch-benefits.service';
-import { GenerateTokenService } from '../../infra/api/generate-token.service';
+import { makeSaveBenefitsService } from '../../domain/services/factories/make-save-benefits-service';
 import { RedisService } from '../../infra/database/redis/redis.service';
 
 export async function publisherController(
@@ -18,15 +15,7 @@ export async function publisherController(
 
   try {
     const redisService = new RedisService(request.server.redis);
-    const generateTokenService = new GenerateTokenService();
-    const fetchBenefitsService = new FetchBenefitsService();
-    const sendQueueService = new SendQueueService();
-    const saveBenefitsService = new SaveBenefitsService(
-      generateTokenService,
-      fetchBenefitsService,
-      redisService,
-      sendQueueService,
-    );
+    const saveBenefitsService = makeSaveBenefitsService(redisService);
 
     await saveBenefitsService.execute(tax_id);
 
